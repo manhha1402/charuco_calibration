@@ -128,7 +128,7 @@ int main(int argc, char *argv[]) {
     auto outputFilePath = oss.str();
 
     ros::NodeHandle nh_detector("~detector_parameters");
-    readDetectorParameters(nh_detector, calibrator.arucoDetectorParams);
+    readDetectorParameters(nh_detector, calibrator.aruco_detector_params_);
 
     //image_transport::TransportHints hints("compressed", ros::TransportHints());
     image_transport::ImageTransport it(nh);

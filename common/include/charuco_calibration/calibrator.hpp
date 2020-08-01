@@ -112,20 +112,20 @@ public:
 
 private:
 
-    cv::Ptr<cv::aruco::Dictionary> arucoDictionary;
-    cv::Ptr<cv::aruco::CharucoBoard> charucoBoard;
+    cv::Ptr<cv::aruco::Dictionary> aruco_dictionary_;
+    cv::Ptr<cv::aruco::CharucoBoard> charuco_board_;
 
-    std::vector<std::vector<std::vector<cv::Point2f>>> allCorners;
-    std::vector<std::vector<int>> allIds;
-    std::vector<cv::Mat> allImgs;
+    std::vector<std::vector<std::vector<cv::Point2f>>> all_corners_;
+    std::vector<std::vector<int>> all_ids_;
+    std::vector<cv::Mat> all_imgs_;
 
-    CalibratorLogFunction logFunction;
+    CalibratorLogFunction log_function_;
 
 public:
     /** Calibrator parameters: number of chessboard squares, ArUco sizes, etc */
-    CalibratorParams params;
+    CalibratorParams params_;
     /** ArUco detector parameters */
-    cv::Ptr<cv::aruco::DetectorParameters> arucoDetectorParams;
+    cv::Ptr<cv::aruco::DetectorParameters> aruco_detector_params_;
     /** Update internal state based on current params value; call this after changing params */
     void applyParams();
 
@@ -136,7 +136,7 @@ public:
     cv::Mat getBoardImage(int width, int height, int margin=0)
     {
         cv::Mat boardImg(height, width, CV_8UC1);
-        charucoBoard->draw(boardImg.size(), boardImg, margin);
+        charuco_board_->draw(boardImg.size(), boardImg, margin);
         return boardImg;
     }
 
@@ -151,9 +151,9 @@ public:
     {
         if (detectionResult.isValid())
         {
-            allCorners.push_back(detectionResult.corners);
-            allIds.push_back(detectionResult.ids);
-            allImgs.push_back(detectionResult.sourceImage);
+            all_corners_.push_back(detectionResult.corners);
+            all_ids_.push_back(detectionResult.ids);
+            all_imgs_.push_back(detectionResult.sourceImage);
             return true;
         }
         return false;
@@ -161,7 +161,7 @@ public:
 
     std::vector<cv::Mat>& getStoredCalibrationImages()
     {
-        return allImgs;
+        return all_imgs_;
     }
 
     CalibrationResult performCalibration();

@@ -91,29 +91,29 @@ bool readCalibrationFlags(ros::NodeHandle& nh, int& calibrationFlags)
 
 void readCalibratorParams(ros::NodeHandle& nh, charuco_calibration::Calibrator& calibrator)
 {
-    calibrator.params.squaresX = nh.param("squares_x", 6);
-    calibrator.params.squaresY = nh.param("squares_y", 8);
-    calibrator.params.squareLength = nh.param("square_length", 0.021);
-    calibrator.params.markerLength = nh.param("marker_length", 0.013);
-    calibrator.params.dictionaryId = nh.param("dictionary_id", 4);
-    calibrator.params.aspectRatio = nh.param("aspect_ratio", 1.0);
-    calibrator.params.performRefinement = nh.param("perform_refinement", false);
-    calibrator.params.drawHistoricalMarkers = nh.param("draw_historical_markers", true);
+    calibrator.params_.squaresX = nh.param("squares_x", 6);
+    calibrator.params_.squaresY = nh.param("squares_y", 8);
+    calibrator.params_.squareLength = nh.param("square_length", 0.021);
+    calibrator.params_.markerLength = nh.param("marker_length", 0.013);
+    calibrator.params_.dictionaryId = nh.param("dictionary_id", 4);
+    calibrator.params_.aspectRatio = nh.param("aspect_ratio", 1.0);
+    calibrator.params_.performRefinement = nh.param("perform_refinement", false);
+    calibrator.params_.drawHistoricalMarkers = nh.param("draw_historical_markers", true);
     // FIXME: Make flags usage more user-friendly
-    if (!readCalibrationFlags(nh, calibrator.params.calibrationFlags))
+    if (!readCalibrationFlags(nh, calibrator.params_.calibrationFlags))
     {
         ROS_WARN_NAMED(loggerName.c_str(), "Could not retrieve calibration_flags from parameter server");
-        calibrator.params.calibrationFlags = nh.param<int>("calibration_flags_mask", cv::CALIB_RATIONAL_MODEL);
+        calibrator.params_.calibrationFlags = nh.param<int>("calibration_flags_mask", cv::CALIB_RATIONAL_MODEL);
     }
     else
     {
-        ROS_INFO_STREAM_NAMED(loggerName.c_str(), "Calibration flags set to " << calibrator.params.calibrationFlags);
+        ROS_INFO_STREAM_NAMED(loggerName.c_str(), "Calibration flags set to " << calibrator.params_.calibrationFlags);
     }
-    if (std::abs(calibrator.params.aspectRatio - 1.0) > 0.01)
+    if (std::abs(calibrator.params_.aspectRatio - 1.0) > 0.01)
     {
-        if (!(calibrator.params.calibrationFlags & cv::CALIB_FIX_ASPECT_RATIO))
+        if (!(calibrator.params_.calibrationFlags & cv::CALIB_FIX_ASPECT_RATIO))
         {
-            ROS_WARN_STREAM_NAMED(loggerName.c_str(), "Aspect ratio is " << calibrator.params.aspectRatio << ", but CALIB_FIX_ASPECT_RATIO is not set");
+            ROS_WARN_STREAM_NAMED(loggerName.c_str(), "Aspect ratio is " << calibrator.params_.aspectRatio << ", but CALIB_FIX_ASPECT_RATIO is not set");
         }
     }
     calibrator.applyParams();

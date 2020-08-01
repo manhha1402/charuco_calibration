@@ -89,7 +89,7 @@ int main(int argc, char** argv)
 
     charuco_calibration::Calibrator calibrator;
     charuco_calibration::readCalibratorParams(nhPriv, calibrator);
-    charuco_calibration::readDetectorParameters(nhDetector, calibrator.arucoDetectorParams);
+    charuco_calibration::readDetectorParameters(nhDetector, calibrator.aruco_detector_params_);
     calibrator.setLogger(logFunction);
 
     std::string imgPath = nhPriv.param<std::string>("images_path", "calibration_images");

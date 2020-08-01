@@ -1,15 +1,36 @@
-os: linux
-dist: xenial
-language: generic
+# This config uses industrial_ci (https://github.com/ros-industrial/industrial_ci.git).
+# For troubleshooting, see readme (https://github.com/ros-industrial/industrial_ci/blob/master/README.rst)
+
+language: generic # optional, just removes the language badge
+
 services:
   - docker
 
+# include the following block if the C/C++ build artifacts should get cached by Travis,
+# CCACHE_DIR needs to get set as well to actually fill the cache
+cache:
+  directories:
+    - $HOME/.ccache
+
+git:
+  quiet: true # optional, silences the cloning of the target repository
+
+# configure the build environment(s)
+# https://github.com/ros-industrial/industrial_ci/blob/master/doc/index.rst#variables-you-can-configure
 env:
-  - ROS_DISTRO=kinetic
-  - ROS_DISTRO=melodic
+  global: # global settings for all jobs
+    - CCACHE_DIR=$HOME/.ccache # enables C/C++ caching in industrial_ci
+  matrix: # each line is a job
+    - ROS_DISTRO="kinetic"
+    - ROS_DISTRO="melodic"
 
-before_script:
-  - docker pull ros:${ROS_DISTRO}
+# allow failures, e.g. for unsupported distros
+matrix:
+  allow_failures:
+    - env: ROS_DISTRO="kinetic"
 
+# clone and run industrial_ci
+install:
+  - git clone --quiet --depth 1 https://github.com/ros-industrial/industrial_ci.git .industrial_ci -b master
 script:
-  - docker run --rm -v $(pwd):/catkin_ws/src ros:${ROS_DISTRO} /bin/bash -c 'apt update; cd /catkin_ws; rosdep install --from-paths src --ignore-src -y; catkin_make'
+  - .industrial_ci/travis.sh
