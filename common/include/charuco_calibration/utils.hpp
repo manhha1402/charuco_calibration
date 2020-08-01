@@ -1,6 +1,6 @@
 #pragma once
 
-#include "calibrator.h"
+#include "charuco_calibration/calibrator.hpp"
 
 #include <opencv2/aruco.hpp>
 #include <opencv2/aruco/charuco.hpp>

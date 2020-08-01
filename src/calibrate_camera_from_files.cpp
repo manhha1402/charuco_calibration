@@ -1,5 +1,5 @@
-#include "calibrator.h"
-#include "utils.h"
+#include "charuco_calibration/calibrator.hpp"
+#include "charuco_calibration/utils.hpp"
 
 #include <ros/ros.h>
 #include <opencv2/imgcodecs.hpp>

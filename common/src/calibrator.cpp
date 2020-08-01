@@ -1,4 +1,4 @@
-#include "calibrator.h"
+#include "charuco_calibration/calibrator.hpp"
 
 #include <iostream>
 #include <chrono>

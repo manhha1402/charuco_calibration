@@ -36,8 +36,8 @@ or tort (including negligence or otherwise) arising in any way out of
 the use of this software, even if advised of the possibility of such damage.
 */
 
-#include "calibrator.h"
-#include "utils.h"
+#include "charuco_calibration/calibrator.hpp"
+#include "charuco_calibration/utils.hpp"
 
 #include <ros/ros.h>
 #include <sensor_msgs/Image.h>
@@ -58,7 +58,6 @@ the use of this software, even if advised of the possibility of such damage.
 #include <ctime>
 #include <fstream>
 
-using namespace cv;
 
 cv::Mat lastImage;
 bool hasImage = false;
@@ -163,17 +162,17 @@ int main(int argc, char *argv[]) {
     calibrator.setLogger(logFunction);
 
     while(hasImage) {
-        Mat image;
+        cv::Mat image;
         image = lastImage.clone();
 
         auto detectionResult = calibrator.processImage(image);
         auto displayedImage = calibrator.drawDetectionResults(detectionResult);
 
-        putText(displayedImage, "Press 'c' to add current frame. 'ESC' to finish and calibrate",
-                Point(10, 20), FONT_HERSHEY_SIMPLEX, 0.5, Scalar(255, 0, 0), 2);
+        cv::putText(displayedImage, "Press 'c' to add current frame. 'ESC' to finish and calibrate",
+                cv::Point(10, 20), cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 0, 0), 2);
 
-        imshow("out", displayedImage);
-        char key = (char)waitKey(waitTime);
+        cv::imshow("out", displayedImage);
+        char key = (char)cv::waitKey(waitTime);
         if(key == 27) break;
         if(key == 'c') {
             if (detectionResult.isValid()) {
@@ -219,14 +218,14 @@ int main(int argc, char *argv[]) {
     }
 
     while(hasImage) {
-        Mat image, imageUndistorted;
+        cv::Mat image, imageUndistorted;
         image = lastImage.clone();
         imageUndistorted = image.clone();
 
         undistort(image, imageUndistorted, calibResult.cameraMatrix, calibResult.distCoeffs);
 
         imshow("Undistorted Sample", imageUndistorted);
-        char key = (char)waitKey(waitTime);
+        char key = (char)cv::waitKey(waitTime);
         if(key == 27) ros::shutdown();
         ros::spinOnce();
         if (ros::isShuttingDown())
