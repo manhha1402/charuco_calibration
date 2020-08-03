@@ -1,0 +1,26 @@
+﻿---
+BasedOnStyle: Google
+AccessModifierOffset: -2
+AlignAfterOpenBracket: Align
+AllowShortFunctionsOnASingleLine: None
+BreakBeforeBraces: Allman
+ColumnLimit: 200
+ConstructorInitializerIndentWidth: 2
+ContinuationIndentWidth: 4
+DerivePointerAlignment: false
+IndentWidth: 4
+MaxEmptyLinesToKeep: 1
+NamespaceIndentation: None
+PenaltyBreakBeforeFirstCallParameter: 19
+PenaltyBreakComment: 60
+PenaltyBreakFirstLessLess: 1000
+PenaltyBreakString: 1
+PenaltyExcessCharacter: 100
+PenaltyReturnTypeOnItsOwnLine: 90
+PointerAlignment: Left
+SpacesBeforeTrailingComments: 2
+Standard: Cpp11
+TabWidth: 4
+UseTab: Always
+
+...
