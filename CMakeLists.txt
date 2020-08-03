@@ -77,10 +77,3 @@ target_link_libraries(calibrate_camera_from_files PRIVATE
 add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(calibrate_camera_from_files ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-###################
-add_executable(test_function
-  src/test_function.cpp
-)
-target_link_libraries(test_function PRIVATE
-  ${PROJECT_NAME}
-)
