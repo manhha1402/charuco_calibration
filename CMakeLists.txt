@@ -77,3 +77,18 @@ target_link_libraries(calibrate_camera_from_files PRIVATE
 add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(calibrate_camera_from_files ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+
+#######
+
+add_executable(camera_pose_node
+  src/camera_pose_node.cpp
+)
+
+target_link_libraries(camera_pose_node 
+  ${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+)
+
+
+add_dependencies(camera_pose_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
