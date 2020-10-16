@@ -192,6 +192,7 @@ CalibrationResult Calibrator::performCalibration()
       allCharucoCorners.push_back(currentCharucoCorners);
       allCharucoIds.push_back(currentCharucoIds);
       filteredImages.push_back(all_imgs_[i]);
+      std::cout<<"Number of corners in image "<<i<<" "<<currentCharucoCorners.size().height<<std::endl;
     }
     else
     {

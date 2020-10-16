@@ -17,14 +17,7 @@ find_package(catkin REQUIRED
   COMPONENTS
   ${catkin_BUILD_PACKAGES}
 )
-find_package(OpenCV 3 REQUIRED NO_MODULE PATHS /usr/local NO_DEFAULT_PATH
-  COMPONENTS
-  aruco
-  calib3d
-  core
-  imgproc
-  highgui
-)
+find_package(OpenCV REQUIRED NO_MODULE PATHS $ENV{OpenCV_PATH} NO_DEFAULT_PATH)
 
 message(STATUS "OpenCV_LIBS: ${OpenCV_LIBS}")
 message(STATUS "OpenCV_INCLUDE_DIRS: ${OpenCV_INCLUDE_DIRS}")
@@ -80,15 +73,15 @@ add_dependencies(calibrate_camera_from_files ${${PROJECT_NAME}_EXPORTED_TARGETS}
 
 #######
 
-add_executable(camera_pose_node
-  src/camera_pose_node.cpp
-)
+#add_executable(camera_pose_node
+#  src/camera_pose_node.cpp
+#)
 
-target_link_libraries(camera_pose_node 
-  ${PROJECT_NAME}
-  ${catkin_LIBRARIES}
-)
+#target_link_libraries(camera_pose_node
+#  ${PROJECT_NAME}
+#  ${catkin_LIBRARIES}
+#)
 
 
-add_dependencies(camera_pose_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+#add_dependencies(camera_pose_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 

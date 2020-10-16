@@ -95,7 +95,7 @@ int main(int argc, char** argv)
 	std::string imgPath = nhPriv.param<std::string>("images_path", "calibration_images");
 	std::string outputFile = nhPriv.param<std::string>("output_file", "calibration.yaml");
 
-	auto imageFiles = getFilesAt(imgPath, {".png", ".jpg", ".jpeg"});
+  auto imageFiles = getFilesAt(imgPath, {".png", ".jpg", ".jpeg",".JPG"});
 
 	if (imageFiles.size() == 0)
 	{
@@ -109,7 +109,7 @@ int main(int argc, char** argv)
 			ROS_INFO_STREAM(" - " << fileName);
 		}
 	}
-
+  int frame_idx = 0;
 	for (const auto& fileName : imageFiles)
 	{
 		cv::Mat image = cv::imread(imgPath + "/" + fileName);
@@ -130,6 +130,11 @@ int main(int argc, char** argv)
 		{
 			ROS_INFO_STREAM("Rejected " << fileName << " due to insufficient features");
 		}
+
+    std::ostringstream ss;
+    ss<<frame_idx;
+    cv::imwrite(imgPath + "/frame-" +ss.str()+".png",displayedImage);
+    frame_idx ++ ;
 	}
 
 
